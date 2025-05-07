@@ -7,43 +7,97 @@ Aprender como aplicar regras de integridade nos dados através das constraints (
 
 ## 📘 Tipos de Constraints
 
-### 🔐 `PRIMARY KEY`
-- Identifica unicamente cada registro.
-- Não permite valores `NULL` nem duplicados.
---(1,1) PERMITE QUE SEJA CRIADO UMA SEQUENCIA AUTOMATICAMENTE, INICIANDO DO NUMERO INTEIRO 1... PODE-SE INICIAR E SEQUENCIAR DE QUALQUER QUANTIDADE
+# 🔐 Constraints no SQL Server — Guia Completo
+
+As *constraints* (restrições) são regras aplicadas às colunas das tabelas para garantir a integridade, consistência e validade dos dados. Elas previnem inserções e atualizações incorretas.
+
+---
+
+## 🔑 PRIMARY KEY
+
+| Características                              |
+|---------------------------------------------|
+| - Identifica unicamente cada linha da tabela |
+| - Não permite valores `NULL`                 |
+| - Não permite valores duplicados             |
+
+📌 Uma tabela só pode ter **uma** `PRIMARY KEY`, mas ela pode ser **composta por múltiplas colunas**.
 
 ```sql
 CREATE TABLE Clientes (
-  ID INT IDENTITY (1,1) PRIMARY KEY, 
+  ClienteID INT PRIMARY KEY,
   Nome VARCHAR(100)
 );
 
-OU
 
-CREATE TABLE Clientes (
-  CONSTRAINT PK_PRODUTO PRIMARY KEY Id_produto 
-  Nome VARCHAR(100)
+-- Chave primária composta
+CREATE TABLE Vendas (
+  ClienteID INT,
+  ProdutoID INT,
+  PRIMARY KEY (ClienteID, ProdutoID)
 );
 
-CREATE TABLE TB_PESSOAS
 
-(
-	Id_produto INT IDENTITY (1,1),
-	NUM_CONTRATO INT,
-  
-	CONSTRAINT PK_PRODUTO PRIMARY KEY (Id_produto, NUM_CONTRATO)
-  
-  );
-
-
-### UNIQUE
-
-- Garante que não haverá registros duplicados a partir de um informação (CPF, POR EXEMPLO)
-
-  CREATE TABLE TB_PESSOAS
-
-(
-	ID_CPF VARCHAR(20),
-	CONSTRAINT UQ_CLIENTE_CPF UNIQUE (ID_CPF)
-  
+CREATE TABLE Pedidos (
+  PedidoID INT PRIMARY KEY,
+  ClienteID INT,
+  FOREIGN KEY (ClienteID) REFERENCES Clientes(ClienteID)
 );
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+##  UNIQUE
+CREATE TABLE Funcionarios (
+  FuncID INT PRIMARY KEY,
+  CPF VARCHAR(11) UNIQUE
+);
+
+
+-- Adicionando depois
+ALTER TABLE Funcionarios ADD CONSTRAINT CPF_Unico UNIQUE (CPF);
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+##  CHECK
+
+CREATE TABLE Produtos (
+  ProdutoID INT PRIMARY KEY,
+  Preco DECIMAL(10,2),
+  CHECK (Preco > 0)
+);
+
+
+-- Exemplo com múltiplos CHECKs
+CREATE TABLE Alunos (
+  ID INT PRIMARY KEY,
+  Idade INT CHECK (Idade >= 0 AND Idade <= 120),
+  Nota DECIMAL(4,2) CHECK (Nota >= 0 AND Nota <= 10)
+);
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+## DEFAULT
+
+CREATE TABLE Produtos (
+  ProdutoID INT PRIMARY KEY,
+  Estoque INT DEFAULT 0,
+  DataCadastro DATE DEFAULT GETDATE()
+);
+
+-- Adicionando depois
+ALTER TABLE Clientes ADD CONSTRAINT Nome_Unico UNIQUE (Nome);
+
+-- Removendo constraint
+ALTER TABLE Clientes DROP CONSTRAINT Nome_Unico;
+
+-- Renomeando constraint (exige DROP e ADD)
+ALTER TABLE Clientes DROP CONSTRAINT Nome_Unico;
+ALTER TABLE Clientes ADD CONSTRAINT Nome_Unico_Novo UNIQUE (Nome);
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+🧠 Boas Práticas com Constraints
+✅ Sempre defina uma PRIMARY KEY
+✅ Nomeie suas constraints para facilitar manutenção (FK_Pedidos_Clientes, CK_Produto_PrecoPositivo)
+✅ Use CHECK para validar faixas ou condições (ex: idade mínima, estoque ≥ 0)
+✅ FOREIGN KEY mantém integridade entre tabelas relacionadas
+✅ DEFAULT evita campos nulos indesejados em colunas padrões
