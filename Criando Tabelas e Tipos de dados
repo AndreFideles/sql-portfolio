@@ -1,0 +1,50 @@
+## 📘 Tópicos abordados
+
+1. **Criando nossa primeira tabela**
+2. **Tipos numéricos**
+   - INT, SMALLINT, TINYINT, BIGINT
+   - DECIMAL, NUMERIC, FLOAT, REAL
+3. **Tipos binários**
+   - BINARY, VARBINARY
+4. **Tipos de data e hora**
+   - DATE, TIME, DATETIME, SMALLDATETIME
+5. **Tipos de texto**
+   - CHAR, VARCHAR, TEXT
+   - NCHAR, NVARCHAR (Unicode)
+6. **AUTO_INCREMENT (IDENTITY) e NULL/NOT NULL**
+
+---
+
+## 🧱 Estrutura básica de criação
+
+```sql
+CREATE TABLE Clientes (
+  ID INT IDENTITY (1,1) PRIMARY KEY,
+  Nome VARCHAR(100) NOT NULL,
+  Idade INT,
+  Email VARCHAR(255),
+  DataCadastro DATETIME DEFAULT GETDATE()
+);
+
+
+## 📄 `comandos.sql` — Exemplos e exercícios
+
+```sql
+-- Criando uma tabela de Produtos
+CREATE TABLE Produtos (
+  ProdutoID INT  PRIMARY KEY,
+  Nome VARCHAR(100) NOT NULL,
+  Preco DECIMAL(10,2) NOT NULL,
+  Estoque INT DEFAULT 0,
+  DataCadastro DATE DEFAULT GETDATE()
+);
+
+-- Inserindo valores
+INSERT INTO Produtos (Nome, Preco)
+VALUES ('Teclado Gamer', 199.90), ('Mouse Wireless', 89.50);
+
+-- Consultando a tabela
+SELECT * FROM Produtos;
+
+-- Alterando a tabela para adicionar um novo campo
+ALTER TABLE Produtos ADD Categoria VARCHAR(50);
