@@ -1,0 +1,73 @@
+# ✍️ Manipulação de Dados no SQL Server — Guia Completo
+
+Esta seção cobre os principais comandos para inserir, atualizar, excluir e consultar dados dentro das tabelas do SQL Server. Inclui também o uso de `TOP`, `DISTINCT` e `TRANSACTIONS`.
+
+---
+
+## 📥 1. INSERT - Inserindo Registros
+
+### ✅ Inserção simples
+```sql
+INSERT INTO Produtos (Nome, Preco)
+VALUES ('Mouse', 49.90);
+
+✅ Inserção com múltiplos registros
+
+INSERT INTO Produtos (Nome, Preco)
+VALUES 
+  ('Teclado', 99.00),
+  ('Monitor', 899.00);
+
+🆚 2. INSERT Posicional vs Declarativo
+
+INSERT INTO Produtos
+VALUES (1, 'Notebook', 3500.00);
+
+INSERT INTO Produtos (ID, Nome, Preco)
+VALUES (1, 'Notebook', 3500.00);
+
+✏️ 3. SELECT + UPDATE - Atualizando dados
+
+-- Seleciona o item
+SELECT * FROM Produtos WHERE ProdutoID = 3;
+
+-- Atualiza o valor
+UPDATE Produtos SET Preco = 59.90 WHERE ProdutoID = 3;
+
+🗑️ 4. DELETE - Excluindo registros
+
+DELETE FROM Produtos WHERE ProdutoID = 5;
+
+🧼 5. UPDATE e DELETE com TOP
+
+-- Atualiza apenas os 3 primeiros
+UPDATE TOP (3) Produtos SET Preco = Preco * 0.9;
+
+-- Deleta os 2 primeiros
+DELETE TOP (2) FROM Produtos;
+
+📊 6. TOP e DISTINCT
+SELECT TOP 5 * FROM Produtos ORDER BY Preco DESC;
+
+▶️ DISTINCT: remove duplicatas
+SELECT DISTINCT Categoria FROM Produtos;
+
+ 7. TRANSACTIONS - Operações com segurança
+BEGIN TRANSACTION;
+
+UPDATE Contas SET Saldo = Saldo - 100 WHERE ContaID = 1;
+UPDATE Contas SET Saldo = Saldo + 100 WHERE ContaID = 2;
+
+-- Confirma as alterações
+COMMIT;
+
+-- Ou cancela tudo
+-- ROLLBACK;
+
+🧠 Boas Práticas
+✅ Use INSERT declarativo sempre
+✅ Use TOP com ORDER BY para controle de limite
+✅ Sempre revise WHERE em UPDATE e DELETE
+✅ Use TRANSACTION para transferências ou lotes críticos
+✅ Combine SELECT com WHERE antes de alterar dados para segurança
+
