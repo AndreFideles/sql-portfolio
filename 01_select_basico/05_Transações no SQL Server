@@ -4,7 +4,8 @@
 
 > "Uma transação é uma **unidade lógica de processamento** que tem como objetivo preservar a **integridade** e a **consistência dos dados**."
 
-Toda vez que realizamos uma conexão com o MS-SQL, essa conexão recebe um número de **sessão**, mesmo que seja feita pela mesma máquina e com o mesmo login. Isso permite rastrear operações e aplicar transações com segurança.
+Toda vez que realizamos uma conexão com o MS-SQL, essa conexão recebe um número de **sessão**, mesmo que seja feita pela mesma máquina e com o mesmo login. 
+Isso permite rastrear operações e aplicar transações com segurança.
 
 ---
 
@@ -34,3 +35,21 @@ COMMIT;
 
 -- Se houver erro:
 -- ROLLBACK;
+
+
+⚙️ Transações implícitas com DML (DELETE, INSERT, UPDATE)
+Esses comandos já abrem uma transação automaticamente
+
+Se o comando for bem-sucedido → COMMIT implícito
+
+Se ocorrer erro → a transação é desfeita
+
+
+✅ Boas práticas com transações
+Use BEGIN TRANSACTION manualmente em operações críticas
+
+Combine com TRY...CATCH e ROLLBACK para maior controle
+
+Evite deixar transações abertas (podem travar o banco)
+
+Use @@TRANCOUNT para verificar se há transações ativas
