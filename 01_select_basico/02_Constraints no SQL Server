@@ -77,6 +77,11 @@ CREATE TABLE Alunos (
 
 ## DEFAULT
 
+Usada para definir um valor padrão para uma coluna quando nenhum valor é informado durante a inserção de um novo registro.
+
+✅ Exemplo:
+Imagine a tabela Clientes com uma coluna DataCadastro. Você quer que, se ninguém informar uma data ao inserir um novo cliente, o sistema use a data e hora atual automaticamente.
+
 CREATE TABLE Produtos (
   ProdutoID INT PRIMARY KEY,
   Estoque INT DEFAULT 0,
