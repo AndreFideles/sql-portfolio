@@ -10,9 +10,40 @@ Aprender como aplicar regras de integridade nos dados através das constraints (
 ### 🔐 `PRIMARY KEY`
 - Identifica unicamente cada registro.
 - Não permite valores `NULL` nem duplicados.
+--(1,1) PERMITE QUE SEJA CRIADO UMA SEQUENCIA AUTOMATICAMENTE, INICIANDO DO NUMERO INTEIRO 1... PODE-SE INICIAR E SEQUENCIAR DE QUALQUER QUANTIDADE
 
 ```sql
 CREATE TABLE Clientes (
-  ID INT IDENTITY (1,1) PRIMARY KEY,
+  ID INT IDENTITY (1,1) PRIMARY KEY, 
   Nome VARCHAR(100)
+);
+
+OU
+
+CREATE TABLE Clientes (
+  CONSTRAINT PK_PRODUTO PRIMARY KEY Id_produto 
+  Nome VARCHAR(100)
+);
+
+CREATE TABLE TB_PESSOAS
+
+(
+	Id_produto INT IDENTITY (1,1),
+	NUM_CONTRATO INT,
+  
+	CONSTRAINT PK_PRODUTO PRIMARY KEY (Id_produto, NUM_CONTRATO)
+  
+  );
+
+
+### UNIQUE
+
+- Garante que não haverá registros duplicados a partir de um informação (CPF, POR EXEMPLO)
+
+  CREATE TABLE TB_PESSOAS
+
+(
+	ID_CPF VARCHAR(20),
+	CONSTRAINT UQ_CLIENTE_CPF UNIQUE (ID_CPF)
+  
 );
