@@ -1,0 +1,56 @@
+# 🧠 Classificação dos Comandos SQL — DDL, DML, DQL, DCL e DTL
+
+Nesta seção, aprofundamos o conhecimento sobre os principais grupos de comandos SQL, seus objetivos e exemplos práticos. Entender essa estrutura é fundamental para saber qual tipo de operação está sendo realizada no banco de dados.
+
+---
+
+## 🔧 DDL — Data Definition Language (Linguagem de Definição de Dados)
+
+Usada para **definir ou alterar a estrutura** do banco de dados (tabelas, índices, visões, etc).
+
+| Comando      | Função                                |
+|--------------|----------------------------------------|
+| `CREATE`     | Cria um novo objeto (tabela, view etc) |
+| `ALTER`      | Altera a estrutura de um objeto        |
+| `DROP`       | Exclui um objeto                       |
+| `TRUNCATE`   | Remove todos os dados de uma tabela    |
+
+```sql
+CREATE TABLE Clientes (
+  ID INT PRIMARY KEY,
+  Nome VARCHAR(100)
+);
+
+
+✍️ DML — Data Manipulation Language (Manipulação de Dados)
+Usada para inserir, atualizar ou remover dados nas tabelas.
+
+Comando	Função
+INSERT	Adiciona novos registros
+UPDATE	Altera dados existentes
+DELETE	Remove registros
+MERGE	Mistura lógica entre INSERT/UPDATE/DELETE
+
+🔐 DCL — Data Control Language (Controle de Acesso)
+Usada para controlar permissões no banco de dados.
+
+Comando	Função
+GRANT	Concede permissões a usuários
+REVOKE	Revoga permissões concedidas
+
+⏱️ DTL — Data Transaction Language (Transações)
+Usada para controlar transações, garantindo consistência.
+
+Comando	Função
+BEGIN	Inicia uma transação
+COMMIT	Confirma as alterações
+ROLLBACK	Desfaz alterações em caso de erro
+
+
+✅ Resumo visual
+Categoria	Comandos principais	Objetivo
+DDL	CREATE, ALTER, DROP, TRUNCATE	Estrutura do banco
+DML	INSERT, UPDATE, DELETE, MERGE	Manipulação de dados
+DQL	SELECT	Consulta de dados
+DCL	GRANT, REVOKE	Controle de permissões
+DTL	BEGIN, COMMIT, ROLLBACK	Controle transacional
