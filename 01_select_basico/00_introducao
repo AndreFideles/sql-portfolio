@@ -1,0 +1,35 @@
+## 🎯 Objetivo
+Ambiente de trabalho (SQL Server) e ferramentas necessárias para executar os comandos SQL no decorrer do curso.
+
+---
+
+## 📘 Tópicos abordados
+
+1. **Instalação do SQL Server**  
+   - SQL Server Developer Edition (grátis para aprendizado)
+   - SQL Server Management Studio (SSMS)
+
+2. **Entendendo o SSMS (Management Studio)**  
+   - Ferramenta gráfica para conectar ao servidor
+   - Árvore de objetos
+   - Editor de query
+   - Janela de resultados
+
+---
+
+## ⚙️ Ferramentas instaladas
+
+- **SQL Server 2022 Developer Edition**
+- **SQL Server Management Studio (SSMS)**
+
+---
+
+## 💡 Dica importante
+Ao abrir o SSMS, conecte-se ao servidor local com:
+- Tipo de autenticação: Autenticação do Windows
+- Nome do servidor: `localhost` ou `.\SQLEXPRESS`
+
+---
+
+## 🧠 Aprendizado pessoal
+Instalar o ambiente corretamente é essencial para evitar erros durante o curso. Agora estou pronto para executar comandos SQL com uma base sólida.
