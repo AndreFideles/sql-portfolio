@@ -1,0 +1,18 @@
+# Seção 3 - Constraints no SQL Server
+
+## 🎯 Objetivo
+Aprender como aplicar regras de integridade nos dados através das constraints (restrições). Elas impedem inserções ou atualizações inválidas, preservando a qualidade e consistência do banco.
+
+---
+
+## 📘 Tipos de Constraints
+
+### 🔐 `PRIMARY KEY`
+- Identifica unicamente cada registro.
+- Não permite valores `NULL` nem duplicados.
+
+```sql
+CREATE TABLE Clientes (
+  ID INT PRIMARY KEY,
+  Nome VARCHAR(100)
+);
