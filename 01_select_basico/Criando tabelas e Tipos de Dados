@@ -59,3 +59,29 @@ SELECT * FROM Produtos;
 
 -- Alterando a tabela para adicionar um novo campo
 ALTER TABLE Produtos ADD Categoria VARCHAR(50);
+
+
+## 🔄 Comportamento do IDENTITY após DELETE
+
+Quando usamos o `IDENTITY` no SQL Server para gerar valores automáticos (como um ID incremental), **os valores gerados são sempre únicos e não são reutilizados**, mesmo que registros anteriores sejam deletados.
+
+### Exemplo:
+
+```sql
+CREATE TABLE Clientes (
+  ID INT IDENTITY(1,1) PRIMARY KEY,
+  Nome VARCHAR(100)
+);
+
+-- Inserindo 3 registros
+INSERT INTO Clientes (Nome) VALUES ('Ana'), ('Bruno'), ('Carlos');
+
+-- IDs gerados: 1, 2, 3
+
+-- Agora deletamos o cliente com ID 2
+DELETE FROM Clientes WHERE ID = 2;
+
+-- Novo insert:
+INSERT INTO Clientes (Nome) VALUES ('Daniela');
+
+-- ID gerado: 4 (não é 2)
