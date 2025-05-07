@@ -18,13 +18,24 @@
 ## 🧱 Estrutura básica de criação
 
 ```sql
-CREATE TABLE Clientes (
-  ID INT (1,1) PRIMARY KEY,
-  Nome VARCHAR(100) NOT NULL,
-  Idade INT,
-  Email VARCHAR(255),
-  DataCadastro DATETIME DEFAULT GETDATE()
-);
+CREATE TABLE TB_CLIENTE
+(
+Id INT IDENTITY (1,1),
+Nome VARCHAR (50),
+CPF VARCHAR (11),
+DataNascimento DATETIME2,
+Email VARCHAR (100),
+CONSTRAINT PK_CLIENTE PRIMARY KEY (Id)
+
+)
+
+
+INSERT INTO TB_CLIENTE 
+
+	(Nome, CPF, DataNascimento, Email)
+	VALUES('Jose de Almeida', 22222222222, '1985-05-12 15:14:22', 'josealmeida@gmail.com')
+
+select top 1 * from TB_CLIENTE
 
 
 ## 📄 `comandos.sql` — Exemplos e exercícios
