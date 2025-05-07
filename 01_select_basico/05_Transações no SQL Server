@@ -1,0 +1,36 @@
+## 🔄 Transações no SQL Server
+
+### 📘 Definição
+
+> "Uma transação é uma **unidade lógica de processamento** que tem como objetivo preservar a **integridade** e a **consistência dos dados**."
+
+Toda vez que realizamos uma conexão com o MS-SQL, essa conexão recebe um número de **sessão**, mesmo que seja feita pela mesma máquina e com o mesmo login. Isso permite rastrear operações e aplicar transações com segurança.
+
+---
+
+### 🔐 O que uma transação garante?
+
+As transações seguem o modelo **ACID**, garantindo:
+
+| Letra | Conceito       | Explicação                                        |
+|-------|----------------|---------------------------------------------------|
+| A     | Atomicidade    | Tudo ou nada é executado                         |
+| C     | Consistência   | Dados sempre respeitam regras e restrições       |
+| I     | Isolamento     | Cada transação é independente das outras         |
+| D     | Durabilidade   | Dados confirmados persistem mesmo após falhas    |
+
+---
+
+### 🛠️ Comandos principais
+
+```sql
+BEGIN TRANSACTION;
+
+UPDATE Contas SET Saldo = Saldo - 100 WHERE ContaID = 1;
+UPDATE Contas SET Saldo = Saldo + 100 WHERE ContaID = 2;
+
+-- Se tudo estiver certo:
+COMMIT;
+
+-- Se houver erro:
+-- ROLLBACK;
