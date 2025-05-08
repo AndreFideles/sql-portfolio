@@ -1,0 +1,61 @@
+📌 O que é uma Subquery?
+Uma subquery (ou subconsulta) é uma consulta dentro de outra consulta. Ela é usada para retornar um valor ou uma lista de valores que serão usados como filtro ou informação em uma consulta principal.
+
+Pense assim:
+👉 “Primeiro descubra X, depois use X para buscar o que eu realmente quero.”
+
+💡 Exemplo 1 — Subquery na cláusula WHERE (mais comum)
+Problema: Quero ver os produtos cujo preço seja maior que a média de todos os produtos.
+
+sql
+Copiar
+Editar
+SELECT Descricao, Preco
+FROM TB_PRODUTO
+WHERE Preco > (
+    SELECT AVG(Preco)
+    FROM TB_PRODUTO
+);
+Explicação para leigos:
+
+Primeiro, a subquery SELECT AVG(Preco) calcula a média de preços da tabela de produtos.
+
+Depois, a query principal busca todos os produtos com preço maior que essa média.
+
+💡 Exemplo 2 — Subquery retornando 1 valor
+Problema: Quero ver o nome do produto com o menor preço.
+
+sql
+Copiar
+Editar
+SELECT Descricao, Preco
+FROM TB_PRODUTO
+WHERE Preco = (
+    SELECT MIN(Preco)
+    FROM TB_PRODUTO
+);
+A subquery SELECT MIN(Preco) retorna o menor preço.
+
+A query principal traz o(s) produto(s) que tem esse preço.
+
+💡 Exemplo 3 — Subquery retornando vários valores
+Problema: Quero todos os pedidos feitos por clientes que são da cidade de ‘São Paulo’.
+
+sql
+Copiar
+Editar
+SELECT *
+FROM TB_PEDIDO
+WHERE ClienteId IN (
+    SELECT ClienteId
+    FROM TB_ENDERECO
+    WHERE Cidade = 'São Paulo'
+);
+A subquery busca todos os ClienteId que moram em São Paulo.
+
+A query principal traz todos os pedidos que foram feitos por esses clientes.
+
+📌 Em breve:
+Você verá também subqueries correlacionadas, EXISTS, subqueries em UPDATE e DELETE. Vou explicar cada um com calma e exemplos simples nos próximos passos.
+
+Quer que eu já continue com subqueries correlacionadas agora?
