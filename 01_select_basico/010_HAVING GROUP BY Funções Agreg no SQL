@@ -1,0 +1,92 @@
+🔹 O que é o GROUP BY?
+O GROUP BY serve para agrupar linhas com valores iguais em uma ou mais colunas. Ele é usado junto com funções de agregação, como COUNT, SUM, AVG, MAX, MIN.
+
+🧠 Funções de agregação mais comuns:
+Função	O que faz	Exemplo
+COUNT()	Conta quantas linhas há	COUNT(*), COUNT(ClienteID)
+SUM()	Soma valores de uma coluna numérica	SUM(Preco)
+AVG()	Calcula a média de valores numéricos	AVG(Preco)
+MAX()	Retorna o maior valor da coluna	MAX(DataPedido)
+MIN()	Retorna o menor valor da coluna	MIN(DataEntrega)
+
+📘 Sintaxe básica do GROUP BY:
+sql
+Copiar
+Editar
+SELECT coluna_agrupada, FUNCAO_AGREGACAO(coluna)
+FROM tabela
+GROUP BY coluna_agrupada;
+💡 Exemplo 1 – Contar pedidos por cliente:
+sql
+Copiar
+Editar
+SELECT ClienteId, COUNT(*) AS TotalPedidos
+FROM TB_PEDIDO
+GROUP BY ClienteId;
+Isso agrupa todos os pedidos por ClienteId e mostra quantos cada um fez.
+
+💡 Exemplo 2 – Soma de preços por produto:
+sql
+Copiar
+Editar
+SELECT ProdutoId, SUM(Preco) AS SomaTotal
+FROM TB_DETALHE_PEDIDO
+GROUP BY ProdutoId;
+Retorna quanto foi vendido de cada produto em valores.
+
+⚠️ Dica: Sempre que usar uma função de agregação, toda coluna que não for usada nela deve obrigatoriamente aparecer no GROUP BY.
+🔄 Diferença entre WHERE e HAVING com GROUP BY:
+sql
+Copiar
+Editar
+-- Filtro ANTES do agrupamento (WHERE)
+SELECT ProdutoId, SUM(Preco)
+FROM TB_DETALHE_PEDIDO
+WHERE Preco > 10
+GROUP BY ProdutoId;
+
+-- Filtro DEPOIS do agrupamento (HAVING)
+SELECT ProdutoId, SUM(Preco)
+FROM TB_DETALHE_PEDIDO
+GROUP BY ProdutoId
+HAVING SUM(Preco) > 100;
+
+🔍 Como usar o HAVING no SQL
+✅ Quando usar HAVING?
+O HAVING é utilizado para filtrar resultados após um agrupamento com GROUP BY.
+
+🔸 Enquanto o WHERE filtra linhas antes do agrupamento,
+🔸 O HAVING filtra grupos após o agrupamento.
+
+🧠 Sintaxe básica:
+sql
+Copiar
+Editar
+SELECT coluna, COUNT(*) AS total
+FROM tabela
+GROUP BY coluna
+HAVING COUNT(*) > 5;
+Explicação:
+
+Agrupa os dados pela coluna.
+
+Conta quantos registros há em cada grupo.
+
+Retorna somente os grupos com mais de 5 registros.
+
+💡 Exemplo prático (usando tabela TB_PEDIDO):
+sql
+Copiar
+Editar
+SELECT FuncionarioId, COUNT(*) AS TotalPedidos
+FROM TB_PEDIDO
+GROUP BY FuncionarioId
+HAVING COUNT(*) >= 10;
+Mostra quais funcionários fizeram 10 ou mais pedidos.
+
+🧩 Comparativo simples:
+Situação	Usar...
+Filtrar por data específica	WHERE
+Filtrar por média de vendas	HAVING
+Ver vendas acima de R$1000 antes do grupo	WHERE
+Ver grupos com soma acima de R$1000	HAVING
