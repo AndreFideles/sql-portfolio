@@ -1,0 +1,65 @@
+JOINs são usados para combinar dados de duas ou mais tabelas com base em uma coluna relacionada entre elas.
+
+38. INNER JOIN – Traz registros que existem nas duas tabelas com correspondência
+sql
+Copiar
+Editar
+SELECT C.NomeCompleto, P.NumeroPedido
+FROM TB_CLIENTE C
+INNER JOIN TB_PEDIDO P
+  ON C.ClienteId = P.ClienteId;
+🟢 Retorna apenas os clientes que têm pedidos registrados.
+
+39. LEFT JOIN e RIGHT JOIN
+LEFT JOIN – Traz todos os registros da tabela da esquerda, mesmo sem correspondência
+sql
+Copiar
+Editar
+SELECT C.NomeCompleto, P.NumeroPedido
+FROM TB_CLIENTE C
+LEFT JOIN TB_PEDIDO P
+  ON C.ClienteId = P.ClienteId;
+🔍 Clientes que têm ou não têm pedidos.
+
+RIGHT JOIN – O oposto do LEFT: traz todos da tabela da direita
+sql
+Copiar
+Editar
+SELECT C.NomeCompleto, P.NumeroPedido
+FROM TB_CLIENTE C
+RIGHT JOIN TB_PEDIDO P
+  ON C.ClienteId = P.ClienteId;
+🔍 Mostra todos os pedidos, mesmo que sem cliente associado.
+
+40. CROSS JOIN – Junta cada linha de uma tabela com todas as da outra
+sql
+Copiar
+Editar
+SELECT C.NomeCompleto, P.Descricao
+FROM TB_CLIENTE C
+CROSS JOIN TB_PRODUTO P;
+⚠️ Gera produto cartesiano: se há 5 clientes e 10 produtos, teremos 50 linhas.
+
+41. UPDATE e DELETE com JOIN
+Atualizando dados com JOIN:
+sql
+Copiar
+Editar
+UPDATE P
+SET P.Preco = P.Preco * 0.9
+FROM TB_PRODUTO P
+INNER JOIN TB_CATEGORIA C
+  ON P.CategoriaId = C.CategoriaId
+WHERE C.Descricao = 'Promoção';
+🟢 Aplica 10% de desconto nos produtos da categoria "Promoção".
+
+Deletando com JOIN:
+sql
+Copiar
+Editar
+DELETE P
+FROM TB_PRODUTO P
+INNER JOIN TB_FORNECEDOR F
+  ON P.FornecedorId = F.FornecedorId
+WHERE F.Empresa = 'Fornecedor Antigo';
+⚠️ Remove produtos de um fornecedor específico.
