@@ -63,3 +63,70 @@ INNER JOIN TB_FORNECEDOR F
   ON P.FornecedorId = F.FornecedorId
 WHERE F.Empresa = 'Fornecedor Antigo';
 ⚠️ Remove produtos de um fornecedor específico.
+
+
+🧠 O que é CROSS JOIN
+Imagine que você tem duas listas:
+
+🧑 Lista de clientes: João, Maria
+
+📦 Lista de produtos: Camiseta, Calça, Tênis
+
+Quando você usa um CROSS JOIN, o banco de dados combina tudo com tudo. Isso significa:
+
+João × Camiseta
+
+João × Calça
+
+João × Tênis
+
+Maria × Camiseta
+
+Maria × Calça
+
+Maria × Tênis
+
+Ou seja, cada cliente é combinado com todos os produtos.
+
+🔢 Como funciona?
+Se você tem:
+
+2 clientes
+
+3 produtos
+
+O resultado do CROSS JOIN será: 2 × 3 = 6 linhas
+
+📌 Exemplo real em SQL:
+sql
+Copiar
+Editar
+SELECT C.NomeCompleto, P.Descricao
+FROM TB_CLIENTE C
+CROSS JOIN TB_PRODUTO P;
+🔎 O que essa consulta faz?
+
+Mostra todos os clientes combinados com todos os produtos, mesmo que o cliente nunca tenha comprado aquele produto.
+
+⚠️ Atenção!
+Um CROSS JOIN sem condição (WHERE) pode gerar muita informação inútil.
+Imagine fazer isso com 1.000 clientes × 500 produtos = 500.000 linhas!
+
+Se você usar um WHERE no CROSS JOIN, ele começa a filtrar e se comporta como um INNER JOIN, ou seja, só mostra as combinações que fazem sentido.
+
+📌 Exemplo com WHERE:
+sql
+Copiar
+Editar
+SELECT C.NomeCompleto, P.Descricao
+FROM TB_CLIENTE C
+CROSS JOIN TB_PRODUTO P
+WHERE P.Preco > 100;
+Agora ele filtra só os produtos acima de R$100, mesmo que ainda esteja cruzando com todos os clientes.
+
+✅ Quando usar?
+Raramente.
+
+Só se você realmente precisa cruzar todos com todos (ex: simulações, testes, combinações possíveis etc).
+
+
