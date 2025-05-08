@@ -163,3 +163,62 @@ ORDER BY é obrigatório ao usar WITH TIES.
 Só é suportado por alguns SGBDs, como o SQL Server.
 
 Pode resultar em mais de N linhas, se houver empates.
+
+
+Esses comandos são usados para comparar os resultados de duas consultas SELECT e retornar:
+
+INTERSECT → apenas os registros que estão nas duas consultas (interseção).
+
+EXCEPT → os registros que estão apenas na primeira consulta e não estão na segunda.
+
+✅ Sintaxe Geral
+sql
+Copiar
+Editar
+SELECT coluna1, coluna2, ...
+FROM tabela1
+[...]
+INTERSECT
+SELECT coluna1, coluna2, ...
+FROM tabela2;
+sql
+Copiar
+Editar
+SELECT coluna1, coluna2, ...
+FROM tabela1
+[...]
+EXCEPT
+SELECT coluna1, coluna2, ...
+FROM tabela2;
+🔍 Regras importantes
+Ambas as consultas devem ter o mesmo número de colunas, com tipos de dados compatíveis e na mesma ordem.
+
+INTERSECT e EXCEPT eliminam valores duplicados automaticamente, como DISTINCT.
+
+🧪 Exemplo com INTERSECT
+sql
+Copiar
+Editar
+-- Clientes que fizeram pedidos e têm endereço cadastrado
+SELECT ClienteId
+FROM TB_PEDIDO
+INTERSECT
+SELECT ClienteId
+FROM TB_ENDERECO;
+🔎 Resultado: apenas os ClienteId que estão em ambas as tabelas.
+
+🧪 Exemplo com EXCEPT
+sql
+Copiar
+Editar
+-- Produtos cadastrados que ainda não foram vendidos
+SELECT ProdutoId
+FROM TB_PRODUTO
+EXCEPT
+SELECT ProdutoId
+FROM TB_DETALHE_PEDIDO;
+🔎 Resultado: apenas os ProdutoId da primeira tabela que não apareceram em vendas.
+
+📌 Dica prática
+Use INTERSECT e EXCEPT para auditorias, consistência de dados ou para comparar conjuntos com facilidade — sem precisar de subqueries complexas ou JOINs com NOT EXISTS.
+
