@@ -1,0 +1,165 @@
+🔍 Seção 7: Como Consultar Dados (SQL)
+29. ORDER BY + Dicas
+Ordena os resultados por uma ou mais colunas.
+
+Padrão: ASC (crescente). Use DESC para decrescente.
+
+Exemplo:
+
+sql
+Copiar
+Editar
+SELECT * FROM TB_PRODUTO ORDER BY Preco DESC;
+30. Estruturas Condicionais WHERE
+Filtra os dados com base em uma condição.
+
+Exemplo:
+
+sql
+Copiar
+Editar
+SELECT * FROM TB_CLIENTE WHERE NomeCompleto LIKE 'A%';
+31. Diretiva LIKE
+Filtragem com padrões.
+
+% representa qualquer sequência de caracteres.
+
+_ representa um único caractere.
+
+Exemplo:
+
+sql
+Copiar
+Editar
+SELECT * FROM TB_CLIENTE WHERE NomeCompleto LIKE '_n%';
+32. Operadores Relacionais e BETWEEN
+=, >, <, >=, <=, <>, !=
+
+BETWEEN define intervalos (inclusive).
+
+Exemplo:
+
+sql
+Copiar
+Editar
+SELECT * FROM TB_PRODUTO WHERE Preco BETWEEN 50 AND 100;
+33. Conceito de NULL
+NULL representa valor desconhecido/ausente.
+
+= NULL não funciona → use IS NULL ou IS NOT NULL.
+
+Exemplo:
+
+sql
+Copiar
+Editar
+SELECT * FROM TB_FUNCIONARIO WHERE DataNascimento IS NULL;
+34. IN, NOT IN e valores nulos
+IN verifica se um valor está dentro de uma lista.
+
+Cuidado com NULL em subconsultas.
+
+Exemplo:
+
+sql
+Copiar
+Editar
+SELECT * FROM TB_PRODUTO WHERE CategoriaId IN (1, 2, 3);
+35. Unindo Consultas (UNION, UNION ALL)
+UNION remove duplicatas; UNION ALL mantém tudo.
+
+As colunas devem ter o mesmo número e tipos compatíveis.
+
+Exemplo:
+
+sql
+Copiar
+Editar
+SELECT NomeCompleto FROM TB_CLIENTE
+UNION
+SELECT NomeCompleto FROM TB_FUNCIONARIO;
+36. Como excluir tabelas e bancos de dados
+Remove estruturas permanentemente.
+
+Exemplo:
+
+sql
+Copiar
+Editar
+DROP TABLE TB_ENDERECO;
+DROP DATABASE EMPRESA_DB;
+37. INTERSECT e EXCEPT
+INTERSECT: interseção entre dois SELECTs.
+
+EXCEPT: valores da primeira consulta que não estão na segunda.
+
+Exemplo:
+
+sql
+Copiar
+Editar
+SELECT NomeCompleto FROM TB_CLIENTE
+INTERSECT
+SELECT NomeCompleto FROM TB_FUNCIONARIO;
+
+🧩 Complemento: TOP ... WITH TIES
+📌 O que é?
+O WITH TIES é usado junto com TOP e ORDER BY para incluir todos os registros empatados no valor de ordenação, mesmo que isso ultrapasse o número definido no TOP.
+
+🛠️ Sintaxe:
+sql
+Copiar
+Editar
+SELECT TOP (n) WITH TIES *
+FROM NomeTabela
+ORDER BY ColunaOrdenada;
+🧠 Por que usar?
+Quando múltiplos registros têm o mesmo valor na coluna de ordenação, o SQL Server considera todos eles “empatados” e os inclui no resultado.
+
+🎯 Exemplo:
+sql
+Copiar
+Editar
+SELECT TOP 3 WITH TIES *
+FROM TB_PRODUTO
+ORDER BY Preco DESC;
+🟢 Isso trará os 3 produtos com maior preço e também qualquer outro produto que tenha exatamente o mesmo preço que o terceiro maior.
+
+⚠️ Regras importantes:
+O ORDER BY é obrigatório quando se usa WITH TIES.
+
+Funciona apenas em SQL Server (não compatível com todos os SGBDs).
+
+🔹 TOP ... WITH TIES no SQL Server
+✅ O que é?
+A cláusula WITH TIES é usada em conjunto com TOP e ORDER BY para garantir que todos os registros empatados no critério de ordenação também sejam incluídos no resultado — mesmo que ultrapasse a quantidade definida no TOP.
+
+🧪 Sintaxe:
+sql
+Copiar
+Editar
+SELECT TOP (n) WITH TIES *
+FROM NomeTabela
+ORDER BY ColunaOrdenada;
+📌 Quando usar?
+Use WITH TIES quando quiser garantir que todos os registros com o mesmo valor no critério de ordenação (empatados) também sejam retornados.
+
+📍 Exemplo prático:
+sql
+Copiar
+Editar
+SELECT TOP 3 WITH TIES *
+FROM TB_PRODUTO
+ORDER BY Preco DESC;
+✔ Este comando irá retornar:
+
+Os 3 produtos com maior preço
+
+E quaisquer outros produtos que tenham o mesmo valor de preço do terceiro produto da lista.
+
+⚠️ Observações:
+ORDER BY é obrigatório ao usar WITH TIES.
+
+Só é suportado por alguns SGBDs, como o SQL Server.
+
+Pode resultar em mais de N linhas, se houver empates.
